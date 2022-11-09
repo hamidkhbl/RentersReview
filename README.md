@@ -2,7 +2,7 @@
 Le't let renters review the places that they have rented
 
 ## What is going on?
-This is a platform letting renters share about the places thay they have rented.
+This is a platform letting renters share their thoughts about the places thay they have rented. This is the capstone project for the [Udacity Full Stack Development Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd0044)
 
 ## What is covered?
 This project will cover the followings:
