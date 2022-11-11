@@ -33,7 +33,7 @@ class User(db.Model):
         return response.json()
         
     def format(self):
-        return jsonify({
+        return {
             'id': self.id,
             'email': self.email
-        })
+        }
