@@ -11,6 +11,7 @@ class Place(db.Model):
     description = db.Column(db.String)
     latitude = db.Column(db.String)
     longitude = db.Column(db.String)
+    user_id = db.Column(db.String)
     
     def get_all():
         return Place.query.all()
