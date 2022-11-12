@@ -2,7 +2,7 @@
 The front end only includes a link to log in and get the token
 - Node.js needs to be installed in your system.
 
-- Open terminal and run the command ``` bash 
+- Open terminal and run the command ``` 
 npm install http-server -g```
 - ``` cd frontend```
 - Run ```http-server```
