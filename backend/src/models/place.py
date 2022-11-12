@@ -59,3 +59,16 @@ class Place(db.Model):
             'latitude': self.latitude,
             'longtude': self.longitude
         }
+    
+    def format_with_comments(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'address': self.address,
+            'city': self.city,
+            'state': self.state,
+            'description': self.description,
+            'latitude': self.latitude,
+            'longtude': self.longitude,
+            'comments': [c.format() for c in self.comments]
+        }
