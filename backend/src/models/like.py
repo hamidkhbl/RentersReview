@@ -13,7 +13,7 @@ class Like(db.Model):
         db.session.commit()
     
     def delete(self):
-        db.session.remove(self)
+        db.session.delete(self)
         db.session.commit()
     
     def is_like(user_id, comment_id):
