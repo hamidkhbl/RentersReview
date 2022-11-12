@@ -70,5 +70,5 @@ class Place(db.Model):
             'description': self.description,
             'latitude': self.latitude,
             'longtude': self.longitude,
-            'comments': [c.format() for c in self.comments]
+            'comments': [c.format_with_likes() for c in self.comments]
         }
