@@ -5,7 +5,7 @@ from .models.comment import Comment
 from .models.like import Like
 from .models.base import setup_db
 from .models.user import User
-from .auth.auth import requires_auth, get_user_id
+from .auth.auth import requires_auth
 
 app = Flask(__name__)
 setup_db(app)
@@ -57,7 +57,7 @@ def get_places():
     
 @app.route('/places', methods=['POST'])
 @requires_auth(permission='read:place')
-def add_place(payload):
+def add_place(user_id):
     place = Place(
         title=request.json.get('title'),
         address=request.json.get('address'),
@@ -66,7 +66,7 @@ def add_place(payload):
         description=request.json.get('description'),
         latitude=request.json.get('latitude'),
         longitude=request.json.get('longitude'),
-        user_id=get_user_id(payload)
+        user_id=user_id
     )
 
     place.insert()
@@ -77,8 +77,11 @@ def add_place(payload):
 
 
 @app.route('/places/<int:place_id>', methods=['DELETE'])
-def delete_place(place_id):
+@requires_auth('read:place')
+def delete_place(user_id, place_id):
     place = Place.get_by_id(place_id)
+    if place.user_id != user_id:
+        abort(403)
     if place is None:
         abort(404)
     else:
@@ -121,13 +124,13 @@ def place_cooments(place_id):
 
 @app.route('/comments', methods=['POST'])
 @requires_auth(permission='read:place')
-def add_comment_for_place(payload):
+def add_comment_for_place(user_id):
     comment = Comment(
         title=request.json.get('title'),
         creation_date=str(datetime.datetime.now()),
         description=request.json.get('title'),
         place_id=request.json.get('place_id'),
-        user_id=get_user_id(payload)
+        user_id=user_id
     )
     comment.insert()
     return jsonify({
@@ -140,23 +143,17 @@ def add_comment_for_place(payload):
 # region like
 
 @app.route('/like', methods=['POST'])
-def like():
+@requires_auth('read:place')
+def like(user_id):
     comment_id=request.json.get('comment_id')
     like = Like(
-        comment_id=request.json.get('comment_id'),
-        user_id = str(1)
+        comment_id=comment_id,
+        user_id=user_id
         )
-    if Like.is_like(1, comment_id):
-        like.insert()
-        return jsonify({
+    result = like.like()
+    return jsonify({
             'success': True,
-            'liked': True
-        })
-    else:
-        like.delete()
-        return jsonify({
-            'success': True,
-            'liked': False
+            'like': result
         })
         
 # endregion

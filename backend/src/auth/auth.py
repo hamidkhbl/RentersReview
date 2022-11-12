@@ -119,8 +119,8 @@ def verify_decode_jwt(token):
                 'description': 'Unable to find the appropriate key.'
             }, 400)
 
-def get_user_id(paylod):
-    return paylod.get('sub').split('|')[1]
+def get_user_id(payload):
+    return payload.get('sub').split('|')[1]
 '''
 @TODO implement @requires_auth(permission) decorator method
     @INPUTS
@@ -137,8 +137,9 @@ def requires_auth(permission=''):
         def wrapper(*args, **kwargs):
             token = get_token_auth_header()
             payload = verify_decode_jwt(token)
+            user_id = get_user_id(payload)
             check_permissions(permission, payload)
-            return f(payload, *args, **kwargs)
+            return f(user_id, *args, **kwargs)
 
         return wrapper
     return requires_auth_decorator
