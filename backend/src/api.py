@@ -137,5 +137,24 @@ def add_comment_for_place(place_id):
 
 # region like
 
+@app.route('/like', methods=['POST'])
+def like():
+    comment_id=request.json.get('comment_id')
+    like = Like(
+        comment_id=request.json.get('comment_id'),
+        user_id = str(1)
+        )
+    if Like.is_like(1, comment_id):
+        like.insert()
+        return jsonify({
+            'success': True,
+            'liked': True
+        })
+    else:
+        like.delete()
+        return jsonify({
+            'success': True,
+            'liked': False
+        })
         
 # endregion

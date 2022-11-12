@@ -12,6 +12,17 @@ class Like(db.Model):
         db.session.add(self)
         db.session.commit()
     
+    def delete(self):
+        db.session.remove(self)
+        db.session.commit()
+    
+    def is_like(user_id, comment_id):
+        is_liked=Like.query.filter_by(comment_id=comment_id).filter_by(user_id=user_id).one_or_none()
+        if is_liked is None:
+            return False
+        else:
+            return True
+    
     def get_user(self):
         return User.query.filter_by(id=self.user_id).one().format()
 
