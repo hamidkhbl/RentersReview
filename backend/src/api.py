@@ -84,6 +84,14 @@ def delete_places_bulk():
         'deleted': result[0],
         'error_occured': result[1]
     })
+
+@app.route('/places/<int:place_id>')
+def get_place_by_id(place_id):
+    place = Place.get_by_id(place_id)
+    return jsonify({
+        'success': True,
+        'place': place.format_with_comments()
+    })
 # endregion
 
 # region comment
