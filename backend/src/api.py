@@ -2,6 +2,7 @@ import datetime
 from flask import Flask, jsonify, abort, request
 from .models.place import Place
 from .models.comment import Comment
+from .models.like import Like
 
 from .models.base import setup_db
 from .models.user import User
@@ -27,6 +28,17 @@ def get_users():
         return jsonify({
             'success': True,
             'users': users
+        })
+    except:
+        abort(500)
+
+@app.route('/users/import')
+def import_users():
+    try:
+        result = User.import_users()
+        return jsonify({
+            'success': True,
+            'added': [u.format() for u in result[0]]
         })
     except:
         abort(500)
@@ -125,8 +137,5 @@ def add_comment_for_place(place_id):
 
 # region like
 
-
-@app.route('/place/<int:place_id>/comments/<int:comment_id>')
-def comment_likes(place_id, comment_id):
-    return "not implemented"
+        
 # endregion
