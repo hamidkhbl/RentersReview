@@ -3,9 +3,9 @@ from flask import Flask, jsonify, abort, request
 from .models.place import Place
 from .models.comment import Comment
 from .models.like import Like
-
 from .models.base import setup_db
 from .models.user import User
+from .auth.auth import requires_auth, get_user_id
 
 app = Flask(__name__)
 setup_db(app)
@@ -43,6 +43,9 @@ def import_users():
     except:
         abort(500)
 
+# endregion
+
+# region place
 
 @app.route('/places')
 def get_places():
@@ -51,13 +54,10 @@ def get_places():
         'success': True,
         'places': places
     })
-# endregion
-
-# region place
-
-
+    
 @app.route('/places', methods=['POST'])
-def add_place():
+@requires_auth(permission='read:place')
+def add_place(payload):
     place = Place(
         title=request.json.get('title'),
         address=request.json.get('address'),
@@ -65,7 +65,8 @@ def add_place():
         state=request.json.get('state'),
         description=request.json.get('description'),
         latitude=request.json.get('latitude'),
-        longitude=request.json.get('longitude')
+        longitude=request.json.get('longitude'),
+        user_id=get_user_id(payload)
     )
 
     place.insert()
@@ -118,14 +119,15 @@ def place_cooments(place_id):
     })
 
 
-@app.route('/places/<int:place_id>/comments', methods=['POST'])
-def add_comment_for_place(place_id):
+@app.route('/comments', methods=['POST'])
+@requires_auth(permission='read:place')
+def add_comment_for_place(payload):
     comment = Comment(
         title=request.json.get('title'),
         creation_date=str(datetime.datetime.now()),
         description=request.json.get('title'),
-        place_id=place_id,
-        user_id=0
+        place_id=request.json.get('place_id'),
+        user_id=get_user_id(payload)
     )
     comment.insert()
     return jsonify({

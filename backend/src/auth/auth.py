@@ -7,7 +7,7 @@ from urllib.request import urlopen
 
 AUTH0_DOMAIN = 'dev-6gnrncvpus8amyed.us.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'drinks'
+API_AUDIENCE = 'places'
 
 ## AuthError Exception
 '''
@@ -119,6 +119,8 @@ def verify_decode_jwt(token):
                 'description': 'Unable to find the appropriate key.'
             }, 400)
 
+def get_user_id(paylod):
+    return paylod.get('sub').split('|')[1]
 '''
 @TODO implement @requires_auth(permission) decorator method
     @INPUTS
