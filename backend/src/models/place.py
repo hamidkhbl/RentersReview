@@ -1,5 +1,7 @@
-from .base import db 
+from .base import db
 from flask import jsonify
+from .comment import Comment
+
 
 class Place(db.Model):
     __tablename__ = 'places'
@@ -12,25 +14,26 @@ class Place(db.Model):
     latitude = db.Column(db.String)
     longitude = db.Column(db.String)
     user_id = db.Column(db.String)
-    
+    comments = db.relationship("Comment", backref="place")
+
     def get_all():
         return Place.query.all()
-    
+
     def get_all_formatted():
         return [p.format() for p in Place.get_all()]
-    
+
     def insert(self):
         db.session.add(self)
         db.session.commit()
         return self
-    
+
     def get_by_id(place_id):
         return Place.query.filter_by(id=place_id).one_or_none()
 
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-    
+
     def delete_bulk(ids):
         deleted = []
         not_deleted = []
@@ -44,7 +47,7 @@ class Place(db.Model):
                 not_deleted.append(id)
                 print(e)
         return [deleted, not_deleted]
-    
+
     def format(self):
         return {
             'id': self.id,
