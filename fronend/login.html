@@ -8,6 +8,7 @@
       APIs.
     </p>
     <a
+        var data = jwtDecode(t)
       href="https://dev-6gnrncvpus8amyed.us.auth0.com/authorize?audience=places&response_type=token&client_id=JHZwMDkNjqPZ5N7p56ixAppm5RgtFmJZ&redirect_uri=http://127.0.0.1:8080/login.html"
       >Login</a
     >
@@ -16,7 +17,7 @@
     <h2>Your token</h2>
 
     <p id="token"></p>
-
+    
     <div>
       <h3>Decoded token</h3>
       <pre id="json"></pre>
@@ -39,7 +40,7 @@
         return token;
       }
       if (t.length > 100) {
-        var data = jwtDecode(t);
+        var data = jwtDecode(t)
         document.getElementById("json").innerHTML = data;
       }
     </script>
