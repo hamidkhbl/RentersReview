@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <p>Click this login page and create a users on Auth0. Then you can use the APIs.</p>
+        <a href="https://dev-6gnrncvpus8amyed.us.auth0.com/authorize?audience=places&response_type=token&client_id=JHZwMDkNjqPZ5N7p56ixAppm5RgtFmJZ&redirect_uri=http://127.0.0.1:8080/login.html">Login</a>
+        <p>You can find the API documentation <a href="">here</a>.</p>
+
+        <h2>Your token</h2>
+
+        <p id="token"></p>
+
+        <div>
+            <h3>Decoded token</h3>
+            <pre id="json"></pre>
+        </div>
+        
+
+        <script>
+        document.getElementById("token").innerHTML = 
+        window.location.href.substring(window.location.href.indexOf("access_token=")+13, window.location.href.indexOf("&expires_in="));
+        function jwtDecode(t) {
+            let token = {};
+            token.raw = t;
+            token.header = JSON.parse(window.atob(t.split('.')[0]));
+            token.payload = JSON.parse(window.atob(t.split('.')[1]));
+            return (token)
+            }
+            var data = jwtDecode(window.location.href.substring(window.location.href.indexOf("access_token=")+13, window.location.href.indexOf("&expires_in=")))
+            document.getElementById("json").innerHTML = data
+            
+        </script>   
+        
+        <pre style="background-color: #9e97973c"><code id="json-container"></code></pre>
+<script>
+
+    
+    document.getElementById('json-container').innerHTML = JSON.stringify(data, null, 2);
+</script>
+    </body>
+</html>
