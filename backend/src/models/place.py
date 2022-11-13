@@ -27,6 +27,9 @@ class Place(db.Model):
         db.session.commit()
         return self
 
+    def update(self):
+        db.session.commit()
+
     def get_by_id(place_id):
         return Place.query.filter_by(id=place_id).one_or_none()
 

@@ -5,6 +5,7 @@ import logging
 import datetime
 
 place_app = Flask(__name__)
+app = Flask(__name__)
 logging.basicConfig(filename='logs/{}.log'.format(datetime.date.today().strftime('%Y-%m-%d')), level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 place_app = Blueprint('place_app', __name__)
@@ -20,7 +21,7 @@ def get_places():
             'places': places
         })
     except Exception as e:
-        place_app.logger.error(e)
+        app.logger.error(e)
         abort(500)
 
 # This API returns a place by id. All the comments and likes are also returned. 
@@ -34,7 +35,7 @@ def get_place_by_id(place_id):
             'place': place.format_with_comments()
         })
     except Exception as e:
-        place_app.logger.error(e)
+        app.logger.error(e)
         abort(500)
 
 # This API posts a place 
@@ -60,7 +61,32 @@ def add_place(user_id):
             'place': place.format()
         })
     except Exception as e:
-        place_app.logger.error(e)
+        app.logger.error(e)
+        abort(500)
+
+# This API patches a place
+# Member, admin and super admin users can call this API
+@place_app.route('/places/<int:place_id>', methods=['PATCH'])
+@requires_auth(permission='patch:place')
+def patch_place(user_id, place_id):
+    
+    try:
+        place = Place.get_by_id(place_id)
+        place.title=request.json.get('title')
+        place.address=request.json.get('address')
+        place.city=request.json.get('city')
+        place.state=request.json.get('state')
+        place.description=request.json.get('description')
+        place.latitude=request.json.get('latitude')
+        place.longitude=request.json.get('longitude')
+
+        place.update()
+        return jsonify({
+            'success': True,
+            'place': place.format()
+        })
+    except Exception as e:
+        app.logger.error(e)
         abort(500)
 
 # This API deletes a place
@@ -81,7 +107,7 @@ def delete_place(user_id, place_id):
             'place': place.format()
         })
     except Exception as e:
-        place_app.logger.error(e)
+        app.logger.error(e)
         abort(500)
 
 # This API deletes a list of places
@@ -97,5 +123,5 @@ def delete_places_bulk():
             'error_occured': result[1]
         })
     except Exception as e:
-        place_app.logger.error(e)
+        app.logger.error(e)
         abort(500)
