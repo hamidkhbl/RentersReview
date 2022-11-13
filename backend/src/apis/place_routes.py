@@ -8,6 +8,9 @@ place_app = Flask(__name__)
 logging.basicConfig(filename='logs/{}.log'.format(datetime.date.today().strftime('%Y-%m-%d')), level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 place_app = Blueprint('place_app', __name__)
+
+# This API returns all the palces
+# This API does not need any permission and all the users can call it.
 @place_app.route('/places')
 def get_places():
     try:
@@ -20,8 +23,24 @@ def get_places():
         place_app.logger.error(e)
         abort(500)
 
+# This API returns a place by id. All the comments and likes are also returned. 
+# This API does not need any permission and all the users can call it.
+@place_app.route('/places/<int:place_id>')
+def get_place_by_id(place_id):
+    try:
+        place = Place.get_by_id(place_id)
+        return jsonify({
+            'success': True,
+            'place': place.format_with_comments()
+        })
+    except Exception as e:
+        place_app.logger.error(e)
+        abort(500)
+
+# This API posts a place 
+# Member, admin and super admin users can call this API
 @place_app.route('/places', methods=['POST'])
-@requires_auth(permission='read:place')
+@requires_auth(permission='post:place')
 def add_place(user_id):
     try:
         place = Place(
@@ -43,9 +62,11 @@ def add_place(user_id):
     except Exception as e:
         place_app.logger.error(e)
         abort(500)
-        
+
+# This API deletes a place
+# Only admin and super admin users can delete places (Member users only can delete places that are added by themselfs)
 @place_app.route('/places/<int:place_id>', methods=['DELETE'])
-@requires_auth('read:place')
+@requires_auth('delete:place')
 def delete_place(user_id, place_id):
     try:
         place = Place.get_by_id(place_id)
@@ -63,7 +84,10 @@ def delete_place(user_id, place_id):
         place_app.logger.error(e)
         abort(500)
 
+# This API deletes a list of places
+# Only super admin can call this API
 @place_app.route('/delete_place_bulk', methods=['POST'])
+@requires_auth('delete:place')
 def delete_places_bulk():
     try:
         ids = request.json.get('ids')
@@ -71,18 +95,6 @@ def delete_places_bulk():
         return jsonify({
             'deleted': result[0],
             'error_occured': result[1]
-        })
-    except Exception as e:
-        place_app.logger.error(e)
-        abort(500)
-
-@place_app.route('/places/<int:place_id>')
-def get_place_by_id(place_id):
-    try:
-        place = Place.get_by_id(place_id)
-        return jsonify({
-            'success': True,
-            'place': place.format_with_comments()
         })
     except Exception as e:
         place_app.logger.error(e)
