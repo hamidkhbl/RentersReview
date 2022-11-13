@@ -13,9 +13,10 @@ The front end is not implemented here, it will be a seperate project.
 
 ### Roles
 In this platform we have 4 levels of users.
-- Unregistered users who can read the content
-- Registered users who can add new places, leave comments and like comments
-- Admin user who can edit and delete places and comments. Admin users also can lock and unlock users.
+- None member users. This users can only view places and comments.
+- Members users. Members can do all the actions that a none member user can do plus they can add new places, leave comments and like comments
+- Admin users. Admins can perform all the actions that member users can plus they can edit and delete all places and comments.
+- Super admin. super admin users can perform all the actions that admin users can plus they can bulk delete places and view other users information.
 ### APIs
 
 `GET /places`
