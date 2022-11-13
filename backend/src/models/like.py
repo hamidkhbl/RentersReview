@@ -5,7 +5,7 @@ from .user import User
 
 class Like(db.Model):
     __tablename__ = 'likes'
-    user_id = db.Column(db.String, db.ForeignKey("users.id"), primary_key=True)
+    user_id = db.Column(db.String)
     comment_id = db.Column(db.Integer, db.ForeignKey("comments.id"), primary_key=True)
 
     def insert(self):
