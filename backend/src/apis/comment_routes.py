@@ -4,6 +4,7 @@ from ..auth.auth import requires_auth
 import logging
 import datetime
 
+app = Flask(__name__)
 comment_app = Flask(__name__)
 logging.basicConfig(filename='logs/{}.log'.format(datetime.date.today().strftime('%Y-%m-%d')), level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
@@ -22,7 +23,7 @@ def place_cooments(place_id):
         abort(500)
 
 @comment_app.route('/comments', methods=['POST'])
-@requires_auth(permission='read:place')
+@requires_auth(permission='post:comment')
 def add_comment_for_place(user_id):
     try:
         comment = Comment(
@@ -38,5 +39,5 @@ def add_comment_for_place(user_id):
             'comment': comment.format()
         })
     except Exception as e:
-        comment_app.logger.error(e)
+        app.logger.error(e)
         abort(500)
