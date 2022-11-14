@@ -1,6 +1,10 @@
 from flask import Flask, jsonify, abort, request, Blueprint
-from ..models.user import User
-from ..auth.auth import requires_auth
+import sys
+import os
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+from models.user import User
+from auth.auth import requires_auth
 import logging
 import datetime
 
