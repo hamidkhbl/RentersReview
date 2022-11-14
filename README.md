@@ -77,7 +77,7 @@ Their permission array in the token should look like this:
 Here is a list of all the APIs.
 
 ### Place routes
-`GET /places`
+**`GET /places`**
 
 Permission: None (This is a public API)
 
@@ -110,7 +110,7 @@ Response:
 }
 ```
 
-`GET /places/<int:place_id>`
+**`GET /places/<int:place_id>`**
 
 Permission: None (This is a public API)
 
@@ -133,7 +133,7 @@ Response:
 ```
 
 
-`POST /places`
+**`POST /places`**
 
 Permission: ```post:place```
 
@@ -167,7 +167,7 @@ Response:
 }
 ```
 
-`PATCH /places/<int:place_id>`
+**`PATCH /places/<int:place_id>`**
 
 Permission:  ```patch:place```
 
@@ -200,7 +200,7 @@ Response:
 }
 ```
 
-`DELETE /places`
+**`DELETE /places`**
 
 Permission:  ```delete:place```
 
@@ -222,7 +222,7 @@ Response:
 ```
 
 ### Comment routes
-`POST /comment`
+**`POST /comment`**
 
 Permission: `post:comment`
 
@@ -251,16 +251,16 @@ Response:
 }
 ```
 
-`DELETE /comment`
+**`DELETE /comment`**
 ```json
 ```
 
-`PATCH /comment`
+**`PATCH /comment`**
 ```json
 ```
 
 ### Like routes
-`POST /like`
+**`POST /like`**
 
 If a comment is not liked, this API will add a like to the post. If the comment is already liked by the use it removes the like.
 
@@ -282,7 +282,7 @@ Response:
 
 ### User routes
 
-`GET /users`
+**`GET /users`**
 
 Permission: `get:user`
 ```json
@@ -314,7 +314,7 @@ Permission: `get:user`
 }
 ```
 
-`/users/import`
+**`/users/import`**
 
 This API import users from Auth0 to the local database.
 
