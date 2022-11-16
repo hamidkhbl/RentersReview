@@ -22,7 +22,7 @@ def get_users(user_id):
             'users': users
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)
 
 @user_app.route('/users/import')
@@ -35,5 +35,5 @@ def import_users(user_id):
             'added': [u.format() for u in result[0]]
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)

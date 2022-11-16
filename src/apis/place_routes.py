@@ -25,7 +25,7 @@ def get_places():
             'places': places
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)
 
 # This API returns a place by id. All the comments and likes are also returned. 
@@ -39,7 +39,7 @@ def get_place_by_id(place_id):
             'place': place.format_with_comments()
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)
 
 # This API posts a place 
@@ -65,7 +65,7 @@ def add_place(user_id):
             'place': place.format()
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)
 
 # This API patches a place
@@ -90,7 +90,7 @@ def patch_place(user_id, place_id):
             'place': place.format()
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)
 
 # This API deletes a place
@@ -111,7 +111,7 @@ def delete_place(user_id, place_id):
             'place': place.format()
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)
 
 # This API deletes a list of places
@@ -127,5 +127,5 @@ def delete_places_bulk(user_id):
             'error_occured': result[1]
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)

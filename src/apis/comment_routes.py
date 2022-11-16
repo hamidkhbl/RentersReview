@@ -23,7 +23,7 @@ def place_cooments(place_id):
             'comments': comments
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)
 
 @comment_app.route('/comments', methods=['POST'])
@@ -43,7 +43,7 @@ def add_comment_for_place(user_id):
             'comment': comment.format()
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)
         
 @comment_app.route('/comment/<int:comment_id>', methods=['DELETE'])
@@ -62,5 +62,5 @@ def delete_place(user_id, comment_id):
             'place': comment.format()
         })
     except Exception as e:
-        app.logger.error(e)
+        print(e)
         abort(500)

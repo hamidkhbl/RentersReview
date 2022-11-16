@@ -28,5 +28,5 @@ def like(user_id):
                 'like': result
             })
     except Exception as e:
-        like_app.logger.error(e)
+        like_print(e)
         abort(500)
