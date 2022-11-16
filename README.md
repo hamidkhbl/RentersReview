@@ -8,6 +8,7 @@ This project will cover the followings:
 - Data modeling
 - Authentication and Authorization
 - APIs
+- API unit tests
 ### What is not covered?
 The frontend for this project is minimal and only includes the log in, log out and refresh token functionalities.
 
@@ -25,12 +26,10 @@ A full set of permissions looks like this.
       "bulkdelete:place",
       "delete:comment",
       "delete:place",
-      "get:user",
       "patch:place",
       "post:comment",
       "post:like",
       "post:place",
-      "import:user"
     ]
 ```
 ### Roles
@@ -64,12 +63,10 @@ Their permission array in the token should look like this:
       "bulkdelete:place",
       "delete:comment",
       "delete:place",
-      "get:user",
       "patch:place",
       "post:comment",
       "post:like",
       "post:place",
-      "import:user"
 
     ]
 ```
@@ -277,52 +274,6 @@ Response:
 {
     "success": true,
     "like": "added" // or "removed"
-}
-```
-
-### User routes
-
-**`GET /users`**
-
-Permission: `get:user`
-```json
-{
-    "success": true,
-    "users": [
-        {
-            "created_at": "2022-11-10T18:27:54.492Z",
-            "email": "hamidkhbl@gmail.com",
-            "email_verified": true,
-            "identities": [
-                {
-                    "connection": "Username-Password-Authentication",
-                    "isSocial": false,
-                    "provider": "auth0",
-                    "user_id": "636d42aa00f9138b729becf6"
-                }
-            ],
-            "last_ip": "2001:569:712a:d700:fd36:259e:41df:f8c3",
-            "last_login": "2022-11-12T19:19:14.072Z",
-            "logins_count": 14,
-            "name": "hamidkhbl@gmail.com",
-            "nickname": "hamidkhbl",
-            "picture": "https://s.gravatar.com/avatar/7c5b98416904d4062afcb01232aee87d?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fha.png",
-            "updated_at": "2022-11-12T19:19:14.073Z",
-            "user_id": "auth0|636d42aa00f9138b729becf6"
-        }
-    ]
-}
-```
-
-**`/users/import`**
-
-This API import users from Auth0 to the local database.
-
-Permission: ```import:user```
-```json
-{
-    "added": [],
-    "not_added": []
 }
 ```
 
