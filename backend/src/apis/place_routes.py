@@ -117,8 +117,8 @@ def delete_place(user_id, place_id):
 # This API deletes a list of places
 # Only super admin can call this API
 @place_app.route('/delete_place_bulk', methods=['POST'])
-@requires_auth('delete:place')
-def delete_places_bulk():
+@requires_auth('bulkdelete:place')
+def delete_places_bulk(user_id):
     try:
         ids = request.json.get('ids')
         result = Place.delete_bulk(ids)
