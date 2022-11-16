@@ -7,13 +7,14 @@ from models.user import User
 from auth.auth import requires_auth
 import logging
 import datetime
-
+app = Flask(__name__)
 user_app = Flask(__name__)
 logging.basicConfig(filename='logs/{}.log'.format(datetime.date.today().strftime('%Y-%m-%d')), level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 user_app = Blueprint('user_app', __name__)
 @user_app.route('/users')
-def get_users():
+@requires_auth(permission='get:user')
+def get_users(user_id):
     try:
         users = User.get_all_from_auth0()
         return jsonify({
@@ -21,11 +22,12 @@ def get_users():
             'users': users
         })
     except Exception as e:
-        user_app.logger.error(e)
+        app.logger.error(e)
         abort(500)
 
 @user_app.route('/users/import')
-def import_users():
+@requires_auth(permission='get:user')
+def import_users(user_id):
     try:
         result = User.import_users()
         return jsonify({
@@ -33,5 +35,5 @@ def import_users():
             'added': [u.format() for u in result[0]]
         })
     except Exception as e:
-        user_app.logger.error(e)
+        app.logger.error(e)
         abort(500)
