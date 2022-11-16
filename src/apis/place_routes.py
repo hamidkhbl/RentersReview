@@ -5,12 +5,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 from models.place import Place
 from auth.auth import requires_auth
-import logging
 import datetime
-
-place_app = Flask(__name__)
-app = Flask(__name__)
-logging.basicConfig(filename='logs/{}.log'.format(datetime.date.today().strftime('%Y-%m-%d')), level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 place_app = Blueprint('place_app', __name__)
 

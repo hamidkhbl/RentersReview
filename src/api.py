@@ -1,4 +1,3 @@
-import logging
 import os, sys
 import sys, os
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -16,8 +15,7 @@ from flask import render_template
 
 app = Flask(__name__)
 setup_db(app)
-logging.basicConfig(filename='logs/{}.log'.format(datetime.date.today().strftime('%Y-%m-%d')),
-                    level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
+
 
 app.register_blueprint(user_app)
 app.register_blueprint(place_app)
