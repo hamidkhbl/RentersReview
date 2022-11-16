@@ -14,7 +14,7 @@ logging.basicConfig(filename='logs/{}.log'.format(datetime.date.today().strftime
 like_app = Blueprint('like_app', __name__)
 
 @like_app.route('/like', methods=['POST'])
-@requires_auth('read:place')
+@requires_auth('post:like')
 def like(user_id):
     try:
         comment_id=request.json.get('comment_id')
