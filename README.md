@@ -249,6 +249,7 @@ Response:
 ```
 
 **`DELETE /comment/<int:comment_id>`**
+
 Permission: `delete:comment`
 ```json
 {
