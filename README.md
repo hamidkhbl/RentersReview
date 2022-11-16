@@ -285,4 +285,14 @@ Response:
     "like": "added" // or "removed"
 }
 ```
+## Tests
+
+To run unit tests cd to tests folder and run the test files.
+
+```bash
+cd backend/src/tests
+python test_place.py  
+python test_comment.py
+python test_like.py
+```
 
