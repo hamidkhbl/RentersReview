@@ -1,0 +1,29 @@
+{
+    "test_users":[
+        {
+            "username": "hamidkhbl+nopermission@gmail.com",
+            "password": "",
+            "role": "non-member",
+            "token": ""
+        },
+        {
+            "username": "hamidkhbl+member@gmail.com",
+            "password": "",
+            "role": "member",
+            "token": ""
+        },
+        {
+            "username": "hamidkhbl+admin@gmail.com",
+            "password": "",
+            "role": "member",
+            "token": ""
+        },
+        {
+            "username": "hamidkhbl+sa@gmail.com",
+            "password": "",
+            "role": "member",
+            "token": ""
+        }
+        
+    ]
+}
