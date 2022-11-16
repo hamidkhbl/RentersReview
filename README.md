@@ -1,5 +1,7 @@
 # RentersReview
+This project is live [here](https://hamidtestapp.herokuapp.com).
 
+A set of valid tokens for each role could be found [here](https://github.com/hamidkhbl/RentersReview/blob/dev/src/tests/test_data.json)
 ## What is going on?
 This is a platform letting renters share their thoughts about the places that they have rented. This is the capstone project for the [Udacity Full Stack Development Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd0044)
 
@@ -287,6 +289,7 @@ To run unit tests follow these commands.
 
 ```bash
 cd backend/src/tests
+export export DATABASE_URL=postgres://vrkyqqmdjitrgv:1541badffaacf7bf97ea8381c8dfe9f722591641443c8118a228e581323685bd@ec2-35-170-146-54.compute-1.amazonaws.com:5432/dfislbdsa7fe8b
 mkdir logs
 python test_place.py  
 python test_comment.py
