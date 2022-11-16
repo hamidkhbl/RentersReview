@@ -287,10 +287,11 @@ Response:
 ```
 ## Tests
 
-To run unit tests cd to tests folder and run the test files.
+To run unit tests follow these commands.
 
 ```bash
 cd backend/src/tests
+mkdir logs
 python test_place.py  
 python test_comment.py
 python test_like.py
