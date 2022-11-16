@@ -248,14 +248,22 @@ Response:
 }
 ```
 
-**`DELETE /comment`**
+**`DELETE /comment/<int:comment_id>`**
+Permission: `delete:comment`
 ```json
+{
+    "place": {
+        "creation_date": "2022-11-15 21:32:04.293194",
+        "description": "Nice place to live",
+        "id": 10,
+        "likes_count": 0,
+        "place_id": 8,
+        "title": "Nice place to live",
+        "user_id": "636d42aa00f9138b729becf6"
+    },
+    "success": true
+}
 ```
-
-**`PATCH /comment`**
-```json
-```
-
 ### Like routes
 **`POST /like`**
 
