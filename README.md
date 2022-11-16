@@ -12,10 +12,6 @@ This project will cover the followings:
 ### What is not covered?
 The frontend for this project is minimal and only includes the log in, log out and refresh token functionalities.
 
-## Setup
-[Backend settup instruction](https://github.com/hamidkhbl/RentersReview/tree/dev/backend)
-
-[Frontend setup instruction](https://github.com/hamidkhbl/RentersReview/tree/dev/fronend)
 ## Authentication and Authorization
 In this project Auth0 is used as authentication and authorization provider. To call non public routes users need to sign in and get a valid token.
 
@@ -295,5 +291,24 @@ mkdir logs
 python test_place.py  
 python test_comment.py
 python test_like.py
+```
+
+## How to set up locally
+- Create the db using this command: 
+```bash
+createdb rentersReview
+```
+- Inatall the dependencies
+```bash
+cd backend
+pip install -r requirements.txt
+```
+- Set the Flask app
+```bash
+exportFLASK_APP=src/api.py 
+```
+- Run flask
+```bash
+flask run
 ```
 

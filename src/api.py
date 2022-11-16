@@ -12,6 +12,7 @@ import datetime
 from flask import Flask, jsonify
 import sys
 import os
+from flask import render_template
 
 app = Flask(__name__)
 setup_db(app)
@@ -23,6 +24,10 @@ app.register_blueprint(place_app)
 app.register_blueprint(comment_app)
 app.register_blueprint(like_app)
 
+
+@app.route('/')
+def method_name():
+    return render_template("login.html")
 
 @app.errorhandler(404)
 def not_found(error):
