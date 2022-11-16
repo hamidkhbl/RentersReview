@@ -1,6 +1,8 @@
 import logging
 import os, sys
-sys.path.append(os.getcwd())
+import sys, os
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
 from src.apis.like_routes import like_app
 from src.apis.comment_routes import comment_app
 from src.apis.user_routes import user_app
@@ -29,6 +31,14 @@ def not_found(error):
         "error": 404,
         "message": "Resource not found."
     }), 404
+    
+@app.errorhandler(401)
+def not_found(error):
+    return jsonify({
+        "success": False,
+        "error": 401,
+        "message": "Unauthorized"
+    }), 401
     
 @app.errorhandler(403)
 def not_found(error):
