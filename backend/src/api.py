@@ -1,15 +1,15 @@
 import logging
-from apis.like_routes import like_app
-from apis.comment_routes import comment_app
-from apis.user_routes import user_app
-from apis.place_routes import place_app
+import os, sys
+sys.path.append(os.getcwd())
+from src.apis.like_routes import like_app
+from src.apis.comment_routes import comment_app
+from src.apis.user_routes import user_app
+from src.apis.place_routes import place_app
 from models.base import setup_db
 import datetime
 from flask import Flask, jsonify
 import sys
 import os
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 app = Flask(__name__)
 setup_db(app)
@@ -29,6 +29,14 @@ def not_found(error):
         "error": 404,
         "message": "Resource not found."
     }), 404
+    
+@app.errorhandler(403)
+def not_found(error):
+    return jsonify({
+        "success": False,
+        "error": 403,
+        "message": "You don't have the permission to access the requested resource."
+    }), 403
 
 @app.errorhandler(405)
 def not_found(error):
