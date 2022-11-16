@@ -12,11 +12,16 @@ from flask import Flask, jsonify
 import sys
 import os
 from flask import render_template
+import logging
 
 app = Flask(__name__)
 setup_db(app)
 
-
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+    
 app.register_blueprint(user_app)
 app.register_blueprint(place_app)
 app.register_blueprint(comment_app)
