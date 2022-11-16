@@ -16,8 +16,8 @@
         Click this login page and create a users on Auth0. Then you can use the
         APIs.
       </p>
-      <a id="login" class="btn btn-info" role="button" href="https://dev-6gnrncvpus8amyed.us.auth0.com/authorize?audience=places&response_type=token&client_id=JHZwMDkNjqPZ5N7p56ixAppm5RgtFmJZ&redirect_uri=http://127.0.0.1:5000">Login</a>
-      <a id="refresh" class="btn btn-info" role="button" href="https://dev-6gnrncvpus8amyed.us.auth0.com/authorize?audience=places&response_type=token&client_id=JHZwMDkNjqPZ5N7p56ixAppm5RgtFmJZ&redirect_uri=http://127.0.0.1:5000">Refresh token</a>
+      <a id="login" class="btn btn-info" role="button" href="https://dev-6gnrncvpus8amyed.us.auth0.com/authorize?audience=places&response_type=token&client_id=JHZwMDkNjqPZ5N7p56ixAppm5RgtFmJZ&redirect_uri=https://hamidtestapp.herokuapp.com/">Login</a>
+      <a id="refresh" class="btn btn-info" role="button" href="https://dev-6gnrncvpus8amyed.us.auth0.com/authorize?audience=places&response_type=token&client_id=JHZwMDkNjqPZ5N7p56ixAppm5RgtFmJZ&redirect_uri=https://hamidtestapp.herokuapp.com/">Refresh token</a>
   
       <p>You can find the API documentation <a href="https://github.com/hamidkhbl/RentersReview" target="_blank">here</a>.</p>
   
@@ -53,7 +53,7 @@
           document.getElementById("json").innerHTML = data;
           document.getElementById("login").innerHTML = "Logout";
           document.getElementById("login").className = "btn btn-secondary";
-          document.getElementById("login").href = "https://dev-6gnrncvpus8amyed.us.auth0.com/v2/logout?client_id=JHZwMDkNjqPZ5N7p56ixAppm5RgtFmJZ&returnTo=http://127.0.0.1:5000";
+          document.getElementById("login").href = "https://dev-6gnrncvpus8amyed.us.auth0.com/v2/logout?client_id=JHZwMDkNjqPZ5N7p56ixAppm5RgtFmJZ&returnTo=https://hamidtestapp.herokuapp.com";
         }
         else{
           document.getElementById("refresh").style.display = 'none';
