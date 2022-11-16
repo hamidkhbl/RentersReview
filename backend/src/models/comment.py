@@ -16,9 +16,16 @@ class Comment(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
     def get_all():
         return Comment.query.all()
+    
+    def get_by_id(comment_id):
+        return Comment.query.filter_by(id=comment_id).one_or_none()
     
     def get_place_comments(place_id):
         return Comment.query.filter_by(place_id=place_id).all()

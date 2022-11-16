@@ -45,3 +45,22 @@ def add_comment_for_place(user_id):
     except Exception as e:
         app.logger.error(e)
         abort(500)
+        
+@comment_app.route('/comment/<int:comment_id>', methods=['DELETE'])
+@requires_auth('delete:comment')
+def delete_place(user_id, comment_id):
+    try:
+        comment = Comment.get_by_id(comment_id)
+        if comment.user_id != user_id:
+            abort(403)
+        if comment is None:
+            abort(404)
+        else:
+            comment.delete()
+        return jsonify({
+            'success': True,
+            'place': comment.format()
+        })
+    except Exception as e:
+        app.logger.error(e)
+        abort(500)
