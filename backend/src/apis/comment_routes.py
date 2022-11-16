@@ -51,8 +51,8 @@ def add_comment_for_place(user_id):
 def delete_place(user_id, comment_id):
     try:
         comment = Comment.get_by_id(comment_id)
-        if comment.user_id != user_id:
-            abort(403)
+        # if comment.user_id != user_id:
+        #     abort(403)
         if comment is None:
             abort(404)
         else:
