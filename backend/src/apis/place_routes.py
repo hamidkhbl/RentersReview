@@ -100,8 +100,8 @@ def patch_place(user_id, place_id):
 def delete_place(user_id, place_id):
     try:
         place = Place.get_by_id(place_id)
-        if place.user_id != user_id:
-            abort(403)
+        # if place.user_id != user_id:
+        #     abort(403)
         if place is None:
             abort(404)
         else:
